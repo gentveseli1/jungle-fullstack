@@ -4,16 +4,35 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  // Connection URLs are no longer supported in schema files.
-  // Move your connection URL configuration for Migrate to prisma.config.ts
-  // and pass `adapter` or `accelerateUrl` to the PrismaClient as needed.
-  // See: https://pris.ly/d/config-datasource and https://pris.ly/d/prisma7-client-config
+  url      = env("DATABASE_URL")
 }
 
+model LandingPage {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String
+  createdAt   DateTime @default(now())
+  
+  sections LandingSection[]
+}
+
+model LandingSection {
+  id            String   @id @default(cuid())
+  title         String
+  content       String
+  imageUrl      String
+  landingPageId String
+  createdAt     DateTime @default(now())
+  
+  landingPage LandingPage @relation(fields: [landingPageId], references: [id])
+}
