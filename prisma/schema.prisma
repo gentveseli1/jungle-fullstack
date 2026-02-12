@@ -1,0 +1,19 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  // Connection URLs are no longer supported in schema files.
+  // Move your connection URL configuration for Migrate to prisma.config.ts
+  // and pass `adapter` or `accelerateUrl` to the PrismaClient as needed.
+  // See: https://pris.ly/d/config-datasource and https://pris.ly/d/prisma7-client-config
+}
+
